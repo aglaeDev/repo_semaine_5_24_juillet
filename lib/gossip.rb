@@ -1,6 +1,15 @@
+
 class Gossip
+    attr_accessor :author, :content
+
+    def initialize(author, content)
+        @author = author
+        @content = content
+    end
+
     def save
-        my_gossip = Gossip.new("auteur", "ceci est un exemple content") #=> Crée une instance de potin, sauvergardée juste dans cette variable
-        my_gossip.save
+        CSV.open("./db/gossip.csv", "ab") do |csv|
+        csv << [@author, @content]
+        end
     end
 end

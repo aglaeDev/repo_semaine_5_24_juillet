@@ -2,10 +2,10 @@ require 'bundler'
 Bundler.require
 
 require 'sinatra'
-
+require_relative './gossip'
 class ApplicationController < Sinatra::Base
   get '/' do
-    "<html><head><title>The Gossip Project</title></head><body><h1>Mon super site de gossip !</h1></body></html>"
+    erb :index
   end
 
   get '/gossips/new/' do
@@ -13,6 +13,6 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/gossips/new/' do
-    Gossip.new(les_entrées_du_gossip).save
+    Gossip.new(params["gossip_author"], params["gossip_content"]).save
   end
 end
